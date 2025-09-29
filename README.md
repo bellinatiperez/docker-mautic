@@ -51,7 +51,7 @@ The latest supported Mautic PHP version is used the moment of generating of the 
 Each variant contains:
 
 * the needed dependencies to run Mautic (e.g. PHP modules)
-* the Mautic codebase installed via composer (see mautic/recommended-project)
+* the Mautic codebase installed via composer (see bellinatiperez/recommended-project)
 * the needed files and configuration to run as a specific role
 
 See the `examples` explanation below how you could use them.
