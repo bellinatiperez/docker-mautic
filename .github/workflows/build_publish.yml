@@ -18,7 +18,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  DOCKERHUB_USERNAME: ${{ env.DOCKERHUB_USERNAME }}
+  DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
