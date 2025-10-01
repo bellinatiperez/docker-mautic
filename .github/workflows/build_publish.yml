@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       mautic_version:
-        description: 'Mautic version (has to be a valid version from `mautic/recommended-project`)'
+        description: 'Mautic version (has to be a valid version from `bellinatiperez/recommended-project`)'
         required: true
       overwrite_latest_major:
         type: boolean
@@ -145,7 +145,7 @@ jobs:
           # list of Docker images to use as base name for tags
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            mautic/mautic           
+            ${{ vars.DOCKERHUB_USERNAME }}/mautic           
           # generate Docker tags based on the following events/attributes
           tags: |
             type=semver,pattern={{version}},value=${{ inputs.mautic_version }}
