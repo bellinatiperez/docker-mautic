@@ -11,6 +11,15 @@ BASH_ENV=/tmp/cron.env
 # Trigger Update - every 15 min starting at 10 past the hour
 10,25,40,55 * * * * php /var/www/html/bin/console mautic:campaigns:trigger 2>&1 | tee /tmp/stdout
 
+# A cada 2 minutos - Processar filas
+*/2 * * * * php /var/www/html/bin/console mautic:bpmessage:process 2>&1 | tee /tmp/stdout
+
+# A cada 5 minutos - Processar arquivos de aspectos
+*/5 * * * * php /var/www/html/bin/console mautic:aspectfile:process --limit=50 2>&1 | tee /tmp/stdout
+
+# A cada 10 minutos - Retentar lotes falhados
+*/10 * * * * php /var/www/html/bin/console mautic:bpmessage:retry-failed-lots --limit=50 2>&1 | tee /tmp/stdout
+
 # Monitored E-mail - every 1 min
 #* * * * * php /var/www/html/bin/console mautic:email:fetch 2>&1 | tee /tmp/stdout
 
