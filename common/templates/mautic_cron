@@ -3,22 +3,22 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 BASH_ENV=/tmp/cron.env
 
 # Segments Update - every 15 min
-0,15,30,45 * * * * php /var/www/html/bin/console mautic:segments:update 2>&1 | tee /tmp/stdout
-
-# Campaigns Update - every 15 min starting at 5 past the hour
-5,20,35,50 * * * * php /var/www/html/bin/console mautic:campaigns:update 2>&1 | tee /tmp/stdout
-
-# Trigger Update - every 15 min starting at 10 past the hour
-10,25,40,55 * * * * php /var/www/html/bin/console mautic:campaigns:trigger 2>&1 | tee /tmp/stdout
-
-# BpMessage Process - every 15 min starting at 5 past the hour
-0,15,30,45 * * * * php /var/www/html/bin/console mautic:bpmessage:process 2>&1 | tee /tmp/stdout
-
-# AspectFile Process - every 15 min starting at 10 past the hour
-0,15,30,45 * * * * php /var/www/html/bin/console mautic:aspectfile:process --limit=50 2>&1 | tee /tmp/stdout
-
-# BpMessage Retry Failed Lots - every 15 min
-0,15,30,45 * * * * php /var/www/html/bin/console mautic:bpmessage:retry-failed-lots --limit=50 2>&1 | tee /tmp/stdout
+0,15,30,45 * * * * php /var/www/html/bin/console mautic:segments:update >> /var/log/mautic/segments.log 2>&1
+ 
+# Campaigns Update - staggered
+3,18,33,48 * * * * php /var/www/html/bin/console mautic:campaigns:update >> /var/log/mautic/campaigns_update.log 2>&1
+ 
+# Campaigns Trigger - staggered
+6,21,36,51 * * * * php /var/www/html/bin/console mautic:campaigns:trigger >> /var/log/mautic/campaigns_trigger.log 2>&1
+ 
+# BpMessage Process
+9,24,39,54 * * * * php /var/www/html/bin/console mautic:bpmessage:process >> /var/log/mautic/bpmessage.log 2>&1
+ 
+# AspectFile Process
+12,27,42,57 * * * * php /var/www/html/bin/console mautic:aspectfile:process --limit=50 >> /var/log/mautic/aspectfile.log 2>&1
+ 
+# Retry failed lots
+14,29,44,59 * * * * php /var/www/html/bin/console mautic:bpmessage:retry-failed-lots --limit=50 >> /var/log/mautic/bp_retry.log 2>&1
 
 # Monitored E-mail - every 1 min
 #* * * * * php /var/www/html/bin/console mautic:email:fetch 2>&1 | tee /tmp/stdout
