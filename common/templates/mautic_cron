@@ -12,10 +12,10 @@ BASH_ENV=/tmp/cron.env
 10,25,40,55 * * * * php /var/www/html/bin/console mautic:campaigns:trigger 2>&1 | tee /tmp/stdout
 
 # BpMessage Process - every 15 min starting at 5 past the hour
-5,20,35,50 * * * * php /var/www/html/bin/console mautic:bpmessage:process 2>&1 | tee /tmp/stdout
+0,15,30,45 * * * * php /var/www/html/bin/console mautic:bpmessage:process 2>&1 | tee /tmp/stdout
 
 # AspectFile Process - every 15 min starting at 10 past the hour
-10,25,40,55 * * * * php /var/www/html/bin/console mautic:aspectfile:process --limit=50 2>&1 | tee /tmp/stdout
+0,15,30,45 * * * * php /var/www/html/bin/console mautic:aspectfile:process --limit=50 2>&1 | tee /tmp/stdout
 
 # BpMessage Retry Failed Lots - every 15 min
 0,15,30,45 * * * * php /var/www/html/bin/console mautic:bpmessage:retry-failed-lots --limit=50 2>&1 | tee /tmp/stdout
