@@ -60,9 +60,7 @@ ARG MAUTIC_VERSION=5.x-dev
 
 RUN cd /opt && \
     composer config --global audit.block-insecure false && \
-    composer config --global github-protocols https && \
-    composer config --global repositories.mautic-fork '{"type": "vcs", "url": "https://github.com/bellinatiperez/mautic.git", "no-api": true}' && \
-    COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_PROCESS_TIMEOUT=10000 composer create-project bellinatiperez/recommended-project:${MAUTIC_VERSION} mautic --no-interaction --prefer-dist && \
+    COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_PROCESS_TIMEOUT=10000 composer create-project bellinatiperez/recommended-project:${MAUTIC_VERSION} mautic --no-interaction && \
     rm -rf /opt/mautic/var/cache/js && \
     find /opt/mautic/node_modules -mindepth 1 -maxdepth 1 -not \( -name 'jquery' -or -name 'vimeo-froogaloop2' \) | xargs rm -rf
 
