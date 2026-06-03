@@ -161,6 +161,11 @@ RUN a2enmod rewrite
 # Set correct ownership for Mautic var folder
 RUN chown -R www-data:www-data /var/www/html/var/
 
+# Ensure CA bundle is readable by non-root users (PHP cURL as www-data needs it).
+# Recent Debian Bookworm package updates ship /etc/ssl with 700 root:root which
+# breaks any HTTPS call from Apache workers (cURL error 77).
+RUN chmod o+rX /etc/ssl /etc/ssl/certs && chmod o+r /etc/ssl/certs/ca-certificates.crt
+
 WORKDIR /var/www/html/docroot
 
 ENTRYPOINT ["/entrypoint.sh"]
